@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react'
-import './App.css'
+import { useRef, useState } from 'react';
+import { FiClock, FiPlay, FiPause, FiRotateCcw,  } from 'react-icons/fi';
+import './App.css';
 
 function App() {
   const [timer, setTimer] = useState(0);
@@ -43,20 +44,22 @@ function App() {
     const hours = `0${Math.floor(timer / 3600)}`.slice(-2);
 
     return`${hours} : ${minutes} : ${seconds}`;
-  }
+  };
 
   return (
-    <>
-      <h1>Stopwatch</h1>
-      <div>{formatTime()}</div>
-      <div>
-        {!isActive && !isPaused && <button onClick={startTimer}>Start</button>}
-        {isActive && !isPaused && <button onClick={pauseTimer}>Pause</button>}
-        {isActive && isPaused && <button onClick={resumeTimer}>Resume</button>}
-        {isActive && <button onClick={resetTimer}>Reset</button>}
-      </div>
-    </>
+    <main className='container'>
+      <h1>St<FiClock />pwatch</h1>
+      <section className='time-controls'>
+        <div className='time'>{formatTime()}</div>
+        <div className='buttons-container'>
+          {!(isActive) && <button className='button play' onClick={startTimer}><FiPlay /></button>}
+          {(isActive && !isPaused) && <button className='button pause' onClick={pauseTimer}><FiPause /></button>}
+          {(isActive && isPaused) && <button className='button resume' onClick={resumeTimer}><FiPlay /></button>}
+          {(isActive)  && <button className='button reset' onClick={resetTimer}><FiRotateCcw /></button>}
+        </div>
+      </section>
+    </main>
   )
 }
 
-export default App
+export default App;
