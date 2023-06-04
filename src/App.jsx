@@ -9,29 +9,43 @@ function App() {
 
   const startTimer = () => {
     // start logic here
+    setIsActive(true);
+    countRef.current = setInterval(() => {
+      setTimer((timer) => timer + 1);
+    }, 1000);
   };
 
   const pauseTimer = () => {
     // pause logic here
-  }
+    clearInterval(countRef.current);
+    setIsPaused(true);
+  };
 
   const resumeTimer = () => {
     // resume logic here
-  }
+    setIsPaused(false);
+    countRef.current = setInterval(() => {
+      setTimer((timer) => timer + 1);
+    }, 1000);
+  };
 
   const resetTimer = () => {
     // reset  logic here
+    clearInterval(countRef.current);
+    setIsActive(false);
+    if (isPaused) setIsPaused(false);
+    setTimer(0);
   }
 
   return (
     <>
       <h1>Stopwatch</h1>
-      <div>00</div>
+      <div>{timer}</div>
       <div>
-        <button>Start</button>
-        <button>Pause</button>
-        <button>Resume</button>
-        <button>Reset</button>
+        {!isActive && !isPaused && <button onClick={startTimer}>Start</button>}
+        {isActive && !isPaused && <button onClick={pauseTimer}>Pause</button>}
+        {isActive && isPaused && <button onClick={resumeTimer}>Resume</button>}
+        {isActive && <button onClick={resetTimer}>Reset</button>}
       </div>
     </>
   )
