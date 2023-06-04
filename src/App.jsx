@@ -35,12 +35,20 @@ function App() {
     setIsActive(false);
     if (isPaused) setIsPaused(false);
     setTimer(0);
+  };
+
+  const formatTime = () => {
+    const seconds = `0${Math.floor(timer % 60)}`.slice(-2);
+    const minutes = `0${Math.floor(timer / 60)}`.slice(-2);
+    const hours = `0${Math.floor(timer / 3600)}`.slice(-2);
+
+    return`${hours} : ${minutes} : ${seconds}`;
   }
 
   return (
     <>
       <h1>Stopwatch</h1>
-      <div>{timer}</div>
+      <div>{formatTime()}</div>
       <div>
         {!isActive && !isPaused && <button onClick={startTimer}>Start</button>}
         {isActive && !isPaused && <button onClick={pauseTimer}>Pause</button>}
